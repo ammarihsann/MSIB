@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
 # Model Buku untuk ORM
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -62,6 +63,24 @@ def create_book():
     db.session.commit()
     return jsonify({'book': new_book.to_dict()}), 201
 
+# Memperbarui data buku (PUT)
+@app.route('/books/<int:book_id>', methods=['PUT'])
+def update_book(book_id):
+    book = Book.query.get(book_id)
+    if book is None:
+        abort(404)
+    if not request.json:
+        abort(400)
+    if 'title' in request.json and type(request.json['title']) != str:
+        abort(400)
+    if 'penulis' in request.json and type(request.json['penulis']) != str:
+        abort(400)
+
+    book.title = request.json.get('title', book.title)
+    book.penulis = request.json.get('penulis', book.penulis)
+    db.session.commit()
+    return jsonify({'book': book.to_dict()}), 200
+
 # Mendapatkan semua pengguna (GET)
 @app.route('/users', methods=['GET'])
 def get_users():
@@ -88,6 +107,25 @@ def create_user():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'user': new_user.to_dict()}), 201
+
+# Memperbarui data pengguna (PUT)
+@app.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        abort(404)
+    if not request.json:
+        abort(400)
+    if 'email' in request.json and type(request.json['email']) != str:
+        abort(400)
+    if 'username' in request.json and type(request.json['username']) != str:
+        abort(400)
+
+    user.email = request.json.get('email', user.email)
+    user.username = request.json.get('username', user.username)
+    db.session.commit()
+    return jsonify({'user': user.to_dict()}), 200
+
 
 if __name__ == '__main__':
     # Membuat tabel jika belum ada
