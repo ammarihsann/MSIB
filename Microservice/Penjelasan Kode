@@ -1,0 +1,10 @@
+Penjelasan Kode VM 1
+Endpoint /ongkir akan menerima POST request dengan payload JSON berisi origin, destination, dan weight. Lalu akan memanggil API RajaOngkir untuk menghitung ongkir dan mengembalikan hasilnya dalam bentuk JSON.
+
+Penjelasan Kode VM 2
+Setup koneksi MySQL dengan SQLAlchemy, dan buat tabel produk dengan kolom id, nama_produk, harga, dan stok. Endpoint /produk akan mengembalikan daftar produk dalam format JSON.
+
+Penjelasan Kode VM 3
+VM3 berfungsi sebagai gateway. Untuk ongkir, VM3 akan meneruskan request ke VM1, sedangkan untuk data produk, request akan diteruskan ke VM2. IP VM1 dan VM2 harus di-update sesuai dengan alamat yang sebenarnya.
+
+
