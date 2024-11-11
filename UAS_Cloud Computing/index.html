@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live DHT22 Data</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -13,5 +14,15 @@
         <p id="humidity" class="data">Humidity: {{ data.humidity }} %</p>
         <p id="timestamp" class="data">Timestamp: {{ data.timestamp }}</p>
     </div>
+
+    <script>
+        const socket = io.connect('http://127.0.0.1:5001');
+
+        socket.on('update_data', function(data) {
+            document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
+            document.getElementById('humidity').textContent = `Humidity: ${data.humidity} %`;
+            document.getElementById('timestamp').textContent = `Timestamp: ${data.timestamp}`;
+        });
+    </script>
 </body>
 </html>
