@@ -1,5 +1,58 @@
 /* static/style.css */
 
+/* Toggle Switch */
+.toggle-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #007acc;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Dark and Light Mode Styles */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -8,12 +61,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f0f4f8;
-}
-
-h1 {
-    color: #007acc;
-    text-align: center;
-    margin-bottom: 20px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -23,25 +71,37 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 300px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+    color: #007acc;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: color 0.3s;
 }
 
 .data {
     font-size: 1.2em;
     margin: 10px 0;
     color: #333;
+    transition: color 0.3s;
 }
 
-#temperature {
-    color: #ff5722;
-    font-weight: bold;
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1c1c1c;
+    color: #f0f4f8;
 }
 
-#humidity {
-    color: #03a9f4;
-    font-weight: bold;
+.container.dark-mode {
+    background-color: #333;
+    color: #f0f4f8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-#timestamp {
-    font-size: 0.9em;
-    color: #666;
-}
+/* Dark mode styles for individual elements */
+h1.dark-mode { color: #00aaff; }
+#temperature.dark-mode { color: #ff8c42; }
+#humidity.dark-mode { color: #5dcaf4; }
+#timestamp.dark-mode { color: #bbbbbb; }
