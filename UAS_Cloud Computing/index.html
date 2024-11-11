@@ -8,6 +8,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
+    <!-- Toggle switch for dark mode -->
+    <div class="toggle-container">
+        <label class="switch">
+            <input type="checkbox" id="toggle-theme" onclick="toggleTheme()">
+            <span class="slider"></span>
+        </label>
+    </div>
+
     <div class="container">
         <h1>Live DHT22 Data</h1>
         <p id="temperature" class="data">Temperature: {{ data.temperature }} °C</p>
@@ -15,14 +23,7 @@
         <p id="timestamp" class="data">Timestamp: {{ data.timestamp }}</p>
     </div>
 
-    <script>
-        const socket = io.connect('http://127.0.0.1:5001');
-
-        socket.on('update_data', function(data) {
-            document.getElementById('temperature').textContent = `Temperature: ${data.temperature} °C`;
-            document.getElementById('humidity').textContent = `Humidity: ${data.humidity} %`;
-            document.getElementById('timestamp').textContent = `Timestamp: ${data.timestamp}`;
-        });
-    </script>
+    <!-- Tautkan ke file JavaScript eksternal -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
